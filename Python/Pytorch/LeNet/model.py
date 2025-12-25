@@ -33,3 +33,28 @@ class LeNet(nn.Module):
         x = self.f7(x)
         x = self.sig(x)
         return x
+
+if __name__ == '__main__':
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # 自动判断cuda是否激活gpu
+
+    # 模型实例化
+    model = LeNet().to(device) # 模型放入设备实例化为model
+    print(summary(model, (1, 28, 28)))
+"""
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1            [-1, 6, 28, 28]             156
+           Sigmoid-2            [-1, 6, 28, 28]               0
+         AvgPool2d-3            [-1, 6, 14, 14]               0
+            Conv2d-4           [-1, 16, 10, 10]           2,416
+           Sigmoid-5           [-1, 16, 10, 10]               0
+         AvgPool2d-6             [-1, 16, 5, 5]               0
+           Flatten-7                  [-1, 400]               0
+            Linear-8                  [-1, 120]          48,120
+            Linear-9                   [-1, 84]          10,164
+           Linear-10                   [-1, 10]             850
+          Sigmoid-11                   [-1, 10]               0
+================================================================
+"""
+
